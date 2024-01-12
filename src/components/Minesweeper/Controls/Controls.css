@@ -1,0 +1,12 @@
+.controls {
+    background-color: var(--clr-neutral-80);
+
+    padding: var(--padding-small);
+
+    border: var(--border-width-standard) inset;
+    border-color: var(--inset-colours);
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

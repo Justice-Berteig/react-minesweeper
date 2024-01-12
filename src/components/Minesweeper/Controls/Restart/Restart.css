@@ -1,0 +1,8 @@
+.restart {
+    background-color: var(--clr-neutral-80);
+
+    padding: var(--padding-tiny);
+
+    border: var(--border-width-standard) outset;
+    border-color: var(--outset-colours);
+}

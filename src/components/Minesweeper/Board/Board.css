@@ -1,0 +1,6 @@
+.board {
+    background-color: var(--clr-neutral-80);
+
+    border: var(--border-width-standard) inset;
+    border-color: var(--inset-colours);
+}
