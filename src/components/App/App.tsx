@@ -3,7 +3,7 @@ import Minesweeper from "../Minesweeper/";
 function App() {
     return (
         <div className="app">
-            <Minesweeper />
+            <Minesweeper width={4} height={4} startingMines={4} />
         </div>
     );
 }
