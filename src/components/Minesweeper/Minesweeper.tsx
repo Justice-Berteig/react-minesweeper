@@ -1,54 +1,71 @@
-import { MutableRefObject, useRef, useState } from "react";
+import { useReducer } from "react";
 import Board from "./Board";
-import Controls from "./Controls";
-import MinesweeperClass from "./utils/minesweeperClass.ts";
-import MinesweeperState from "./utils/minesweeperStateEnum.ts";
+import DifficultySelect from "./DifficultySelect";
+import {
+    Action,
+    Difficulty,
+    MinesweeperState,
+    MinesweeperAction,
+    DifficultyLevel,
+} from "./utils/types.ts";
 import "./Minesweeper.css";
 
-type TProps = {
-    width: number;
-    height: number;
-    startingMines: number;
-};
+let incremenetMS: number = 0;
 
-function Minesweeper(props: TProps) {
-    const [state, setState] = useState(MinesweeperState.BEFORE_START);
-
-    const tileRefs: MutableRefObject<HTMLDivElement | null>[][] = [];
-
-    for (let x = 0; x < props.width; x++) {
-        const row: MutableRefObject<HTMLDivElement | null>[] = [];
-        for (let y = 0; y < props.height; y++) {
-            const tile: MutableRefObject<HTMLDivElement | null> = useRef(null);
-            row.push(tile);
-        }
-        tileRefs.push(row);
-    }
-
-    const minesweeperRef = useRef<MinesweeperClass>(
-        new MinesweeperClass(
-            props.width,
-            props.height,
-            props.startingMines,
-            tileRefs
-        )
-    );
-
-    function printRefs() {
-        for (let x = 0; x < props.width; x++) {
-            for (let y = 0; y < props.height; y++) {
-                console.log(
-                    minesweeperRef.current.tiles[x][y].ref.current?.innerHTML
-                );
+function reducer(
+    prevState: MinesweeperState,
+    action: MinesweeperAction
+): MinesweeperState {
+    switch (action.type) {
+        case Action.RESET:
+            if (action.newDifficulty) {
+                // If a new difficulty was passed
+                // Create a new state object with the new board settings
+                return new MinesweeperState(action.newDifficulty);
+            } else {
+                return prevState;
             }
-        }
+        case Action.LCLICK:
+            if (action.index) {
+                // If an index for the click was passed
+                // Activate the tile that was clicked
+                prevState.activateTile(action.index);
+                return prevState.cloneState();
+            } else {
+                return prevState;
+            }
+        case Action.RCLICK:
+            if (action.index) {
+                incremenetMS++;
+                // If an index for the click was passed
+                // Flag the tile that was clicked
+                prevState.flagTile(action.index);
+                return prevState.cloneState();
+            } else {
+                return prevState;
+            }
+        default:
+            return prevState;
     }
+}
+
+// Function to create intitial state for reducer
+function reducerInit(difficulty: DifficultyLevel): MinesweeperState {
+    return new MinesweeperState(new Difficulty(difficulty));
+}
+
+function Minesweeper() {
+    const [state, dispatch] = useReducer(
+        reducer,
+        DifficultyLevel.BEGINNER,
+        reducerInit
+    );
 
     return (
         <div className="minesweeper">
-            <Controls />
-            <Board minesweeperRef={minesweeperRef} />
-            <button onClick={printRefs}>TEST</button>
+            <p>{"" + state.tiles[0][0].isFlagged}</p>
+            <DifficultySelect dispatch={dispatch} />
+            <Board state={state} dispatch={dispatch} />
         </div>
     );
 }

@@ -1,21 +1,47 @@
-import { MutableRefObject } from "react";
-import Row from "./Row/Row.tsx";
-import MinesweeperClass from "../utils/minesweeperClass.ts";
-import TileClass from "../utils/tileClass.ts";
+import Controls from "./Controls";
+import Tile from "./Tile";
+import { Action, MinesweeperAction, MinesweeperState } from "../utils/types.ts";
 import "./Board.css";
 
 type TProps = {
-    minesweeperRef: MutableRefObject<MinesweeperClass>;
+    state: MinesweeperState;
+    dispatch: (object: MinesweeperAction) => void;
 };
 
 function Board(props: TProps) {
-    const tiles: TileClass[][] = props.minesweeperRef.current.tiles;
-
     return (
         <div className="board">
-            {tiles.map((row, index) => {
-                return <Row key={"row-" + index} tiles={row} />;
-            })}
+            <Controls
+                remainingMines={props.state.remainingMines}
+                restartGame={() => {
+                    props.dispatch({
+                        type: Action.RESET,
+                        newDifficulty: props.state.difficulty,
+                    });
+                }}
+                isEnded={props.state.isEnded}
+                isStarted={props.state.isStarted}
+                isWon={props.state.isWon}
+            />
+            <div className="tiles">
+                {/* For each row of tiles */}
+                {props.state.tiles.map((column, xIndex) => {
+                    return (
+                        <div className="column" key={"column-" + xIndex}>
+                            {/* For each tile in the row */}
+                            {column.map((tile, yIndex) => {
+                                return (
+                                    <Tile
+                                        key={"tile-" + xIndex + "-" + yIndex}
+                                        tile={tile}
+                                        dispatch={props.dispatch}
+                                    />
+                                );
+                            })}
+                        </div>
+                    );
+                })}
+            </div>
         </div>
     );
 }

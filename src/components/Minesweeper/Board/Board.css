@@ -1,6 +1,16 @@
 .board {
-    background-color: var(--clr-neutral-80);
+    display: flex;
+    flex-direction: column;
 
-    border: var(--border-width-standard) inset;
-    border-color: var(--inset-colours);
+    border: 5px solid black;
+}
+
+.board > .tiles {
+    display: flex;
+    flex-direction: row;
+}
+
+.board > .tiles > .column {
+    display: flex;
+    flex-direction: column;
 }

@@ -13,12 +13,31 @@
     --clr-neutral-10: #191919;
     --clr-neutral-0: #000000;
 
+    --clr-tile-bg: #c6c6c6;
+    --clr-tile-bg-border: gray;
+
+    --clr-tile-cover: #c6c6c6;
+    --clr-tile-cover-border: white gray gray white;
+
+    --clr-one: blue;
+    --clr-two: green;
+    --clr-three: red;
+    --clr-four: navy;
+    --clr-five: maroon;
+    --clr-six: teal;
+    --clr-seven: black;
+    --clr-eight: gray;
+
     --border-width-small: 0.2rem;
     --border-width-standard: 0.4rem;
 
     --padding-tiny: 0.2rem;
     --padding-small: 0.4rem;
     --padding-standard: 0.7rem;
+
+    --gap-tiny: calc(var(--padding-tiny) * 2);
+    --gap-small: calc(var(--padding-small) * 2);
+    --gap-standard: calc(var(--padding-standard) * 2);
 
     --border-highlight-colour: var(--clr-neutral-100);
     --border-shadow-colour: var(--clr-neutral-70);
@@ -30,7 +49,7 @@
 }
 
 body {
-    background-color: #eeeeee;
+    background-color: var(--clr-neutral-100);
 
     padding: 0px;
     margin: 0px;

@@ -1,0 +1,7 @@
+.difficulty-select {
+    padding: var(--padding-small);
+
+    display: flex;
+    flex-direction: row;
+    gap: var(--gap-small);
+}
