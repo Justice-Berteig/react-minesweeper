@@ -10,8 +10,6 @@ import {
 } from "./utils/types.ts";
 import "./Minesweeper.css";
 
-let incremenetMS: number = 0;
-
 function reducer(
     prevState: MinesweeperState,
     action: MinesweeperAction
@@ -28,19 +26,22 @@ function reducer(
         case Action.LCLICK:
             if (action.index) {
                 // If an index for the click was passed
+                // Deep copy the previous state
+                const newState = prevState.createDeepCopy();
                 // Activate the tile that was clicked
-                prevState.activateTile(action.index);
-                return prevState.cloneState();
+                newState.activateTile(action.index);
+                return newState;
             } else {
                 return prevState;
             }
         case Action.RCLICK:
             if (action.index) {
-                incremenetMS++;
                 // If an index for the click was passed
+                // Deep copy the previous state
+                const newState = prevState.createDeepCopy();
                 // Flag the tile that was clicked
-                prevState.flagTile(action.index);
-                return prevState.cloneState();
+                newState.flagTile(action.index);
+                return newState;
             } else {
                 return prevState;
             }
@@ -63,7 +64,6 @@ function Minesweeper() {
 
     return (
         <div className="minesweeper">
-            <p>{"" + state.tiles[0][0].isFlagged}</p>
             <DifficultySelect dispatch={dispatch} />
             <Board state={state} dispatch={dispatch} />
         </div>

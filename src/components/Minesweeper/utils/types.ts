@@ -315,13 +315,14 @@ export class MinesweeperState {
 
         if (tile.isRevealed) return;
 
+        // Invert the isFlagged property for the tile
         tile.isFlagged = !tile.isFlagged;
     }
 
     /*
     Function just creates a new object with the exact same values so that the damn state will update
     */
-    cloneState(): MinesweeperState {
+    createShallowCopy(): MinesweeperState {
         return new MinesweeperState(
             this.difficulty,
             this.isEnded,
@@ -329,6 +330,32 @@ export class MinesweeperState {
             this.isWon,
             this.remainingMines,
             this.tiles
+        );
+    }
+
+    /*
+    Function creates and returns a deep copy of the state object so that the state remains immutable
+    */
+    createDeepCopy(): MinesweeperState {
+        const deepCopiedTiles: MinesweeperTile[][] = [];
+
+        // For each tile in the state
+        for (let x = 0; x < this.tiles.length; x++) {
+            const tileColumn: MinesweeperTile[] = [];
+            for (let y = 0; y < this.tiles[0].length; y++) {
+                // Create new tile to
+                tileColumn.push(this.tiles[x][y].createDeepCopy());
+            }
+            deepCopiedTiles.push(tileColumn);
+        }
+
+        return new MinesweeperState(
+            this.difficulty,
+            this.isEnded,
+            this.isStarted,
+            this.isWon,
+            this.remainingMines,
+            deepCopiedTiles
         );
     }
 }
@@ -358,5 +385,20 @@ export class MinesweeperTile {
         this.isFlagged = false;
         this.isRevealed = false;
         this.mineExploded = false;
+    }
+
+    /*
+    Function creates and returns a deep copy of the tile
+    */
+    createDeepCopy(): MinesweeperTile {
+        const newTile = new MinesweeperTile(this.index.x, this.index.y);
+
+        newTile.adjacentMines = this.adjacentMines;
+        newTile.hasMine = this.hasMine;
+        newTile.isFlagged = this.isFlagged;
+        newTile.isRevealed = this.isRevealed;
+        newTile.mineExploded = this.mineExploded;
+
+        return newTile;
     }
 }
