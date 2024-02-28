@@ -83,7 +83,7 @@
 
 .tile[data-is-revealed="false"][data-is-flagged="true"]::after {
     content: "";
-    background-image: url("flag.svg");
+    background-image: url("/flag.svg");
     background-size: calc(var(--side-length) - 0.8rem)
         calc(var(--side-length) - 0.8rem);
     background-repeat: no-repeat;
