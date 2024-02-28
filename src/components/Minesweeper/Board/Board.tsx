@@ -1,6 +1,7 @@
 import Controls from "./Controls";
 import Tile from "./Tile";
-import { Action, MinesweeperAction, MinesweeperState } from "../utils/types.ts";
+import { ActionType, MinesweeperAction } from "../utils/minesweeper-action.ts";
+import { MinesweeperState } from "../utils/minesweeper-state.ts";
 import "./Board.css";
 
 type TProps = {
@@ -12,10 +13,10 @@ function Board(props: TProps) {
     return (
         <div className="board">
             <Controls
-                remainingMines={props.state.remainingMines}
+                remainingFlags={props.state.remainingFlags}
                 restartGame={() => {
                     props.dispatch({
-                        type: Action.RESET,
+                        type: ActionType.RESET,
                         newDifficulty: props.state.difficulty,
                     });
                 }}

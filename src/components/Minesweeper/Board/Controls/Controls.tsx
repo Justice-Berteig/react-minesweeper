@@ -1,10 +1,10 @@
-import RemainingMines from "./RemainingMines";
+import RemainingMines from "./RemainingFlags";
 import Restart from "./Restart";
 import Timer from "./Timer";
 import "./Controls.css";
 
 type TProps = {
-    remainingMines: number;
+    remainingFlags: number;
     restartGame: () => void;
     isEnded: boolean;
     isStarted: boolean;
@@ -14,7 +14,7 @@ type TProps = {
 function Controls(props: TProps) {
     return (
         <div className="controls">
-            <RemainingMines remainingMines={props.remainingMines} />
+            <RemainingMines remainingFlags={props.remainingFlags} />
             <Restart
                 restartGame={props.restartGame}
                 isEnded={props.isEnded}

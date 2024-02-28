@@ -1,9 +1,8 @@
+import { ActionType, MinesweeperAction } from "../utils/minesweeper-action.ts";
 import {
-    Action,
-    Difficulty,
     DifficultyLevel,
-    MinesweeperAction,
-} from "../utils/types.ts";
+    MinesweeperDifficulty,
+} from "../utils/minesweeper-difficulty.ts";
 import "./DifficultySelect.css";
 
 type TProps = {
@@ -16,8 +15,10 @@ function DifficultySelect(props: TProps) {
             <button
                 onClick={() => {
                     props.dispatch({
-                        type: Action.RESET,
-                        newDifficulty: new Difficulty(DifficultyLevel.BEGINNER),
+                        type: ActionType.RESET,
+                        newDifficulty: new MinesweeperDifficulty(
+                            DifficultyLevel.BEGINNER
+                        ),
                         index: null,
                     });
                 }}
@@ -27,8 +28,8 @@ function DifficultySelect(props: TProps) {
             <button
                 onClick={() => {
                     props.dispatch({
-                        type: Action.RESET,
-                        newDifficulty: new Difficulty(
+                        type: ActionType.RESET,
+                        newDifficulty: new MinesweeperDifficulty(
                             DifficultyLevel.INTERMEDIATE
                         ),
                         index: null,
@@ -40,8 +41,10 @@ function DifficultySelect(props: TProps) {
             <button
                 onClick={() => {
                     props.dispatch({
-                        type: Action.RESET,
-                        newDifficulty: new Difficulty(DifficultyLevel.EXPERT),
+                        type: ActionType.RESET,
+                        newDifficulty: new MinesweeperDifficulty(
+                            DifficultyLevel.EXPERT
+                        ),
                         index: null,
                     });
                 }}

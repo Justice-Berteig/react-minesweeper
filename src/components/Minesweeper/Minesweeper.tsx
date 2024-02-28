@@ -1,13 +1,12 @@
 import { useReducer } from "react";
 import Board from "./Board";
 import DifficultySelect from "./DifficultySelect";
+import { ActionType, MinesweeperAction } from "./utils/minesweeper-action.ts";
 import {
-    Action,
-    Difficulty,
-    MinesweeperState,
-    MinesweeperAction,
     DifficultyLevel,
-} from "./utils/types.ts";
+    MinesweeperDifficulty,
+} from "./utils/minesweeper-difficulty.ts";
+import { MinesweeperState } from "./utils/minesweeper-state.ts";
 import "./Minesweeper.css";
 
 function reducer(
@@ -15,7 +14,7 @@ function reducer(
     action: MinesweeperAction
 ): MinesweeperState {
     switch (action.type) {
-        case Action.RESET:
+        case ActionType.RESET:
             if (action.newDifficulty) {
                 // If a new difficulty was passed
                 // Create a new state object with the new board settings
@@ -23,25 +22,19 @@ function reducer(
             } else {
                 return prevState;
             }
-        case Action.LCLICK:
+        case ActionType.LCLICK:
             if (action.index) {
                 // If an index for the click was passed
-                // Deep copy the previous state
-                const newState = prevState.createDeepCopy();
                 // Activate the tile that was clicked
-                newState.activateTile(action.index);
-                return newState;
+                return prevState.activateTile(action.index);
             } else {
                 return prevState;
             }
-        case Action.RCLICK:
+        case ActionType.RCLICK:
             if (action.index) {
                 // If an index for the click was passed
-                // Deep copy the previous state
-                const newState = prevState.createDeepCopy();
                 // Flag the tile that was clicked
-                newState.flagTile(action.index);
-                return newState;
+                return prevState.flagTile(action.index);
             } else {
                 return prevState;
             }
@@ -52,7 +45,7 @@ function reducer(
 
 // Function to create intitial state for reducer
 function reducerInit(difficulty: DifficultyLevel): MinesweeperState {
-    return new MinesweeperState(new Difficulty(difficulty));
+    return new MinesweeperState(new MinesweeperDifficulty(difficulty));
 }
 
 function Minesweeper() {

@@ -1,10 +1,10 @@
 import { ReactElement } from "react";
 import { numberToString } from "./util/number-to-string.ts";
 import {
-    Action,
+    ActionType,
     MinesweeperAction,
-    MinesweeperTile,
-} from "../../utils/types.ts";
+} from "../../utils/minesweeper-action.ts";
+import { MinesweeperTile } from "../../utils/minesweeper-tile.ts";
 import "./Tile.css";
 
 type TProps = {
@@ -35,7 +35,7 @@ function Tile(props: TProps) {
             onClick={() => {
                 // When the tile is left clicked
                 props.dispatch({
-                    type: Action.LCLICK,
+                    type: ActionType.LCLICK,
                     index: props.tile.index,
                 });
             }}
@@ -44,7 +44,7 @@ function Tile(props: TProps) {
                 // Prevent context menu from popping up
                 e.preventDefault();
                 props.dispatch({
-                    type: Action.RCLICK,
+                    type: ActionType.RCLICK,
                     index: props.tile.index,
                 });
             }}
