@@ -113,19 +113,19 @@ export class MinesweeperState {
             } else if (tile.adjacentMines === 0) {
                 // If the tile has no adjacent mines
                 // Reveal all adjacent tiles
-                const adjacentTiles = this.getAdjacentTilesFor(index);
-                for (const adjacentTile of adjacentTiles) {
-                    // this.revealTile(adjacentTile.index);
-                }
+                // const adjacentTiles = this.getAdjacentTilesFor(index);
+                // for (const adjacentTile of adjacentTiles) {
+                //     this.revealTile(adjacentTile.index);
+                // }
             }
         } else if (tile.adjacentMines > 0 && this.isSatisfied(index)) {
             // If the tile is already revealed
             // and the tile has the same number of adjacent flags as adjacent mines
             // Activate all adjacent non-flagged tiles
-            const adjacentTiles = this.getAdjacentTilesFor(index);
-            for (const adjacentTile of adjacentTiles) {
-                // this.activateTile(adjacentTile.index);
-            }
+            // const adjacentTiles = this.getAdjacentTilesFor(index);
+            // for (const adjacentTile of adjacentTiles) {
+            //     this.activateTile(adjacentTile.index);
+            // }
         }
 
         return this.updateState(update);
@@ -315,27 +315,27 @@ export class MinesweeperState {
     if the tile has been flagged it is still revealed
     if the tile has no adjacent mines it also reveals all adjacent tiles
     */
-    private revealTile(index: TileIndex): void {
-        if (this.isEnded) return;
+    // private revealTile(index: TileIndex): void {
+    //     if (this.isEnded) return;
 
-        // Get the tile that is being revealed
-        const tile = this.tiles[index.x][index.y];
+    //     // Get the tile that is being revealed
+    //     const tile = this.tiles[index.x][index.y];
 
-        if (!tile.isRevealed) {
-            // If the tile has not been revealed yet
-            // Reaveal it
-            tile.isRevealed = true;
+    //     if (!tile.isRevealed) {
+    //         // If the tile has not been revealed yet
+    //         // Reaveal it
+    //         tile.isRevealed = true;
 
-            if (tile.adjacentMines === 0) {
-                // If the tile has no adjacent mines
-                // Reveal all adjacent tiles
-                const adjacentTiles = this.getAdjacentTilesFor(index);
-                for (const adjacentTile of adjacentTiles) {
-                    this.revealTile(adjacentTile.index);
-                }
-            }
-        }
-    }
+    //         if (tile.adjacentMines === 0) {
+    //             // If the tile has no adjacent mines
+    //             // Reveal all adjacent tiles
+    //             const adjacentTiles = this.getAdjacentTilesFor(index);
+    //             for (const adjacentTile of adjacentTiles) {
+    //                 this.revealTile(adjacentTile.index);
+    //             }
+    //         }
+    //     }
+    // }
 
     /*
     Function takes the index of a tile on the board and checks if it has an equal ammount
