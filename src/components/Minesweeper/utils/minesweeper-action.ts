@@ -1,5 +1,5 @@
 import { MinesweeperDifficulty } from "./minesweeper-difficulty.ts";
-import { TileIndex } from "./minesweeper-tile.ts";
+import { TileIndex } from "./tile-index.ts";
 
 export enum ActionType {
     RESET = 0,
