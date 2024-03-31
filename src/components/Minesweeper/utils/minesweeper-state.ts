@@ -1,52 +1,8 @@
+import { handleEmptyTile } from "./handleEmptyTile.ts";
 import { MinesweeperDifficulty } from "./minesweeper-difficulty.ts";
-import { MinesweeperTile, TileIndex, TileUpdate } from "./minesweeper-tile.ts";
-
-class StateUpdate {
-    difficulty: MinesweeperDifficulty | null;
-    isEnded: boolean | null;
-    isStarted: boolean | null;
-    isWon: boolean | null;
-    remainingFlags: number | null;
-    revealedTiles: number | null;
-    tiles: MinesweeperTile[];
-
-    constructor() {
-        this.difficulty = null;
-        this.isEnded = null;
-        this.isStarted = null;
-        this.isWon = null;
-        this.remainingFlags = null;
-        this.revealedTiles = null;
-        this.tiles = [];
-    }
-
-    /*
-    Function takes a tile object and an object representing an update to that tile
-    If the tile is already in the list of tiles in this state update object then update that tile
-    Otherwise deep copy the tile, add it to the list of tiles in this update, and update the tile
-    */
-    public updateTile(oldTile: MinesweeperTile, update: TileUpdate): void {
-        // Check if the tile already exists in the update object
-        for (const tile of this.tiles) {
-            if (
-                tile.index.x == update.index.x &&
-                tile.index.y == update.index.y
-            ) {
-                // If the tile that is being updated already exists in this update object
-                // Update the tile again
-                tile.updateTile(update);
-                // Early return from the function
-                return;
-            }
-        }
-
-        // If the tile does not already exist in the update object
-        // Update the tile
-        const newTile = oldTile.updateTile(update);
-        // Add the new tile to this update object's list of updated tiles
-        this.tiles.push(newTile);
-    }
-}
+import { MinesweeperTile } from "./minesweeper-tile.ts";
+import { StateUpdate, updateState } from "./state-update.ts";
+import { TileIndex } from "./tile-index.ts";
 
 export class MinesweeperState {
     public difficulty: MinesweeperDifficulty;
@@ -111,55 +67,70 @@ export class MinesweeperState {
         // Initialize state update object
         const update: StateUpdate = new StateUpdate();
 
-        if (!this.isStarted) update.isStarted = true;
-
         if (!tile.isRevealed) {
             // If the tile has not been revealed yet
-            // Deep copy the tile and add it to the update
-            const newTile = tile.createDeepCopy();
-            update.tiles.push(newTile);
             // Reaveal the tile
-            newTile.isRevealed = true;
+            update.updateTile({
+                index: tile.index,
+                isRevealed: true,
+            });
 
             if (tile.hasMine) {
                 // If the tile has a mine
-                // Explode the mine
-                newTile.mineExploded = true;
-                // Reveal the rest of the mines
-                for (const column of this.tiles) {
-                    for (const otherTile of column) {
-                        // For each tile in the state
-                        if (otherTile.hasMine) {
-                            // If the tile has a mine
-                            // Create tile update object
-                            const tileUpdate = new TileUpdate(otherTile.index);
-                            tileUpdate.isRevealed = true;
-                            // Update the state update
-                            update.updateTile(otherTile, tileUpdate);
-                        }
-                    }
-                }
-                // End the game
-                update.isEnded = true;
+                // Show that the user made an error
+                update.updateTile({
+                    index: tile.index,
+                    userError: true,
+                });
             } else if (tile.adjacentMines === 0) {
-                // If the tile has no adjacent mines
-                // Reveal all adjacent tiles
-                // const adjacentTiles = this.getAdjacentTilesFor(index);
-                // for (const adjacentTile of adjacentTiles) {
-                //     this.revealTile(adjacentTile.index);
-                // }
+                // If the tile is empty
+                // Handle the empty tile
+                handleEmptyTile(tile, this, update, [tile.index]);
             }
         } else if (tile.adjacentMines > 0 && this.isSatisfied(index)) {
             // If the tile is already revealed
             // and the tile has the same number of adjacent flags as adjacent mines
             // Activate all adjacent non-flagged tiles
-            // const adjacentTiles = this.getAdjacentTilesFor(index);
-            // for (const adjacentTile of adjacentTiles) {
-            //     this.activateTile(adjacentTile.index);
-            // }
+            const adjacentTiles: MinesweeperTile[] =
+                this.getAdjacentTilesFor(index);
+            for (const adjacentTile of adjacentTiles) {
+                if (adjacentTile.isFlagged && !adjacentTile.hasMine) {
+                    // If the tile was incorrectly flagged
+                    // Display that the user made an error
+                    update.updateTile({
+                        index: adjacentTile.index,
+                        userError: true,
+                    });
+                } else if (
+                    !adjacentTile.isFlagged &&
+                    !adjacentTile.isRevealed
+                ) {
+                    // If the tile is not flagged and not revealed
+                    // Reveal the tile
+                    update.updateTile({
+                        index: adjacentTile.index,
+                        isRevealed: true,
+                    });
+
+                    if (adjacentTile.hasMine) {
+                        // If the adjacent tile has a mine
+                        // Display that the user made an error
+                        update.updateTile({
+                            index: adjacentTile.index,
+                            userError: true,
+                        });
+                    } else if (adjacentTile.adjacentMines === 0) {
+                        // If the adjacent tile is an empty tile
+                        // Handle the empty tile
+                        handleEmptyTile(adjacentTile, this, update, [
+                            adjacentTile.index,
+                        ]);
+                    }
+                }
+            }
         }
 
-        return this.updateState(update);
+        return updateState(this, update);
     }
 
     /*
@@ -178,22 +149,13 @@ export class MinesweeperState {
         // Initialize state update object
         const update: StateUpdate = new StateUpdate();
 
-        // Create tile update object and invert the flagged property
-        const tileUpdate = new TileUpdate(tile.index);
-        tileUpdate.isFlagged = !tile.isFlagged;
-        // Update the tile in the state update object
-        update.updateTile(tile, tileUpdate);
+        // Invert the tile's flagged attribute
+        update.updateTile({
+            index: tile.index,
+            isFlagged: !tile.isFlagged,
+        });
 
-        // Update number of remaining flags
-        let remainingFlags = this.remainingFlags;
-        if (tile.isFlagged) {
-            remainingFlags++;
-        } else {
-            remainingFlags--;
-        }
-        update.remainingFlags = remainingFlags;
-
-        return this.updateState(update);
+        return updateState(this, update);
     }
 
     /*
@@ -273,7 +235,7 @@ export class MinesweeperState {
     Function takes the index of a tile on the board
     and returns all adjacent tiles
     */
-    private getAdjacentTilesFor(index: TileIndex): MinesweeperTile[] {
+    public getAdjacentTilesFor(index: TileIndex): MinesweeperTile[] {
         const adjacentTiles: MinesweeperTile[] = [];
 
         // For each tile in a 3x3 grid centered on the target tile
@@ -351,52 +313,6 @@ export class MinesweeperState {
     }
 
     /*
-    Function takes a list of changes to the state, and returns a new state object with those changes
-    without making any changes to the original state object
-    */
-    private updateState(update: StateUpdate): MinesweeperState {
-        // Create shallow copy of current state
-        const newState = this.createShallowCopy();
-
-        // Update any of the primitives if a new primitive was passed
-        if (update.difficulty != null) newState.difficulty = update.difficulty;
-        if (update.isEnded != null) newState.isEnded = update.isEnded;
-        if (update.isStarted != null) newState.isStarted = update.isStarted;
-        if (update.isWon != null) newState.isWon = update.isWon;
-        if (update.remainingFlags != null)
-            newState.remainingFlags = update.remainingFlags;
-        if (update.revealedTiles != null)
-            newState.revealedTiles = update.revealedTiles;
-
-        // Update the tiles
-        if (update.tiles.length > 0) {
-            // If there are tiles to update
-            // Get list of columns that have updates
-            const updatedColumns: number[] = [];
-            for (const updatedTile of update.tiles) {
-                // For each of the updated tiles
-                const colIndex = updatedTile.index.x;
-                if (!updatedColumns.includes(colIndex)) {
-                    // If the tile is in a column that has not yet been updated
-                    // Add the column index to the list of updated columns
-                    updatedColumns.push(colIndex);
-                    // Shallow copy the column
-                    newState.tiles[colIndex] = [...newState.tiles[colIndex]];
-                }
-                // Now that the column has been shallow copied
-                // Replace old tile with updated tile
-                newState.tiles[colIndex].splice(
-                    updatedTile.index.y,
-                    1,
-                    updatedTile
-                );
-            }
-        }
-
-        return newState;
-    }
-
-    /*
     Function creates and returns a shallow copy of the state object
     */
     public createShallowCopy(): MinesweeperState {
@@ -424,7 +340,7 @@ export class MinesweeperState {
             for (let y = 0; y < this.tiles[0].length; y++) {
                 // For each tile in the column
                 // Deep copy the tile
-                tileColumn.push(this.tiles[x][y].createDeepCopy());
+                tileColumn.push(this.tiles[x][y].createCopy());
             }
             deepCopiedTiles.push(tileColumn);
         }

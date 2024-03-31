@@ -48,9 +48,9 @@ function Tile(props: TProps) {
                     index: props.tile.index,
                 });
             }}
-            data-mine-exploded={props.tile.mineExploded}
             data-is-flagged={props.tile.isFlagged}
             data-is-revealed={props.tile.isRevealed}
+            data-user-error={props.tile.userError}
         >
             {tileContents}
         </button>

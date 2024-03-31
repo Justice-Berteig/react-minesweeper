@@ -58,7 +58,7 @@
     color: var(--clr-eight);
 }
 
-.tile[data-mine-exploded="true"] {
+.tile[data-user-error="true"] {
     background-color: red;
 }
 
