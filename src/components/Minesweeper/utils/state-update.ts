@@ -81,7 +81,13 @@ export function updateState(
 
     // Create list to store indeces of columns that contain updated tiles
     const updatedColumns: number[] = [];
-    for (const tileUpdate of update.getTileUpdates()) {
+    // Doing some weird stuff here so that updates added to the list of
+    // tile updates will actually be updated this is weird and bad I don't like it
+    const tileUpdates = update.getTileUpdates();
+    let i = 0;
+    while (i < tileUpdates.length) {
+        const tileUpdate = tileUpdates[i];
+        // for (const tileUpdate of update.getTileUpdates()) {
         // For each of the tile updates
         // Get the column index of the current tile update
         const colIndex = tileUpdate.index.x;
@@ -114,7 +120,6 @@ export function updateState(
             newState.revealedTiles++;
         }
 
-        // Check if the game should be started or ended
         if (!newState.isStarted) {
             // If the game has not started yet
             if (updatedTile.isRevealed) {
@@ -123,12 +128,15 @@ export function updateState(
                 newState.isStarted = true;
             }
         }
+
         if (!newState.isEnded) {
             // If the game has not ended yet
             if (updatedTile.isRevealed && updatedTile.hasMine) {
                 // If a mine was exploded
                 // End the game
                 newState.isEnded = true;
+                // Reveal all the mines
+                revealMines(newState, update);
             } else if (
                 newState.difficulty.startingMines ===
                 newState.difficulty.width * newState.difficulty.height -
@@ -140,8 +148,9 @@ export function updateState(
                 newState.isWon = true;
             }
         }
+
+        i++;
     }
 
-    console.log(newState.revealedTiles);
     return newState;
 }
