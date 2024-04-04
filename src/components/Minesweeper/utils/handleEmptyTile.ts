@@ -24,7 +24,9 @@ export function handleEmptyTile(
     for (const adjacentTile of adjacentTiles) {
         // For each adjacent tile
         if (
-            !hasBeenRevealed(adjacentTile.index, revealedTiles) &&
+            !revealedTiles.some((index) => {
+                return index.equals(adjacentTile.index);
+            }) &&
             !adjacentTile.isRevealed
         ) {
             // If the tile has not been revealed
@@ -36,25 +38,4 @@ export function handleEmptyTile(
             handleEmptyTile(adjacentTile, state, update, revealedTiles);
         }
     }
-}
-
-/*
-Function takes the index of a tile and a list of indeces for previously revealed tiles
-*/
-function hasBeenRevealed(
-    index: TileIndex,
-    revealedTiles: TileIndex[]
-): boolean {
-    for (const revealedIndex of revealedTiles) {
-        // For each of the previously revealed tiles
-        if (revealedIndex.x === index.x && revealedIndex.y === index.y) {
-            // If this tile has already been previously revealed
-            // Return true
-            return true;
-        }
-    }
-
-    // If the tile at the given index has not been revealed yet
-    // Return false
-    return false;
 }

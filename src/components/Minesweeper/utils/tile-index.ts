@@ -6,4 +6,11 @@ export class TileIndex {
         this.x = x;
         this.y = y;
     }
+
+    /*
+    Function checks for equality between this tile index and another tile index
+    */
+    public equals(other: TileIndex): boolean {
+        return this.x === other.x && this.y === other.y;
+    }
 }

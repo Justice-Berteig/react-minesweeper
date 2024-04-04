@@ -37,8 +37,6 @@ export class StateUpdate {
     If a tile update object already exists in the list, the given update is merged with the existing one.
     */
     public updateTile(tileUpdate: TileUpdate): void {
-        // console.log("BEFORE:");
-        // console.log([...this.tileUpdates]);
         // Try to get existing tile update with same index
         const existingTileUpdate = this.getUpdateFor(tileUpdate.index);
 
@@ -55,8 +53,6 @@ export class StateUpdate {
             // Else add the tile update to the list
             this.tileUpdates.push(tileUpdate);
         }
-        // console.log("AFTER:");
-        // console.log([...this.tileUpdates]);
     }
 
     /*

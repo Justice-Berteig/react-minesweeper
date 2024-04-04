@@ -101,3 +101,7 @@
 
     box-sizing: border-box;
 }
+
+.tile[data-is-revealed="false"][data-is-flagged="true"][data-user-error="true"]::before {
+    background-color: rgb(255, 182, 182);
+}
