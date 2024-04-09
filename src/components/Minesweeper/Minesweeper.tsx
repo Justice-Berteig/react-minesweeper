@@ -22,14 +22,11 @@ function reducer(
             } else {
                 return prevState;
             }
-        case ActionType.ACTIVATE_TILE:
+        case ActionType.REVEAL_TILE:
             if (action.index) {
                 // If an index for the click was passed
-                // Activate the tile that was clicked
-                console.log(
-                    "ACTIVATED [" + action.index.x + "," + action.index.y + "]"
-                );
-                return prevState.activateTile(action.index);
+                // REveal the tile that was clicked
+                return prevState.revealTile(action.index);
             } else {
                 return prevState;
             }
@@ -45,9 +42,6 @@ function reducer(
             if (action.index) {
                 // If an index for the press was passed
                 // Press the tile that was pressed
-                console.log(
-                    "PRESSED [" + action.index.x + "," + action.index.y + "]"
-                );
                 return prevState.pressTile(action.index);
             } else {
                 return prevState;
@@ -56,9 +50,6 @@ function reducer(
             if (action.index) {
                 // If an index for the release was passed
                 // Release the tile that was release
-                console.log(
-                    "RELEASED [" + action.index.x + "," + action.index.y + "]"
-                );
                 return prevState.releaseTile(action.index);
             } else {
                 return prevState;

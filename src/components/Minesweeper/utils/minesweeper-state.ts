@@ -56,7 +56,7 @@ export class MinesweeperState {
     if the tile has no adjacent mines it also activates all adjacent tiles
     if the activated tile has a mine the game is ended
     */
-    public activateTile(index: TileIndex): MinesweeperState {
+    public revealTile(index: TileIndex): MinesweeperState {
         // If the game is over or the tile is flagged do nothing
         if (this.isEnded) return this;
         if (this.tiles[index.x][index.y].isFlagged) return this;

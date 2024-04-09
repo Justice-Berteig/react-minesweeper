@@ -84,9 +84,9 @@ function Tile(props: TProps) {
             onMouseUp={(event) => {
                 if (event.button === 0) {
                     // When the left mouse button is lifted up
-                    // Dispatch activate action
+                    // Dispatch reveal action
                     props.dispatch({
-                        type: ActionType.ACTIVATE_TILE,
+                        type: ActionType.REVEAL_TILE,
                         index: props.tile.index,
                     });
                 }

@@ -3,7 +3,7 @@ import { TileIndex } from "./tile-index.ts";
 
 export enum ActionType {
     RESET = 0,
-    ACTIVATE_TILE = 1,
+    REVEAL_TILE = 1,
     FLAG_TILE = 2,
     PRESS_TILE = 3,
     RELEASE_TILE = 4,
