@@ -4,7 +4,9 @@ export class MinesweeperTile {
     adjacentMines: number;
     hasMine: boolean;
     index: TileIndex;
+    isCovered: boolean;
     isFlagged: boolean;
+    isPressed: boolean;
     isRevealed: boolean;
     userError: boolean;
 
@@ -12,7 +14,9 @@ export class MinesweeperTile {
         this.adjacentMines = 0;
         this.hasMine = false;
         this.index = new TileIndex(x, y);
+        this.isCovered = true;
         this.isFlagged = false;
+        this.isPressed = false;
         this.isRevealed = false;
         this.userError = false;
     }
@@ -25,7 +29,9 @@ export class MinesweeperTile {
 
         newTile.adjacentMines = this.adjacentMines;
         newTile.hasMine = this.hasMine;
+        newTile.isCovered = this.isCovered;
         newTile.isFlagged = this.isFlagged;
+        newTile.isPressed = this.isPressed;
         newTile.isRevealed = this.isRevealed;
         newTile.userError = this.userError;
 

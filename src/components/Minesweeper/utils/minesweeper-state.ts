@@ -67,6 +67,27 @@ export class MinesweeperState {
         // Initialize state update object
         const update: StateUpdate = new StateUpdate();
 
+        // Release the tile
+        update.updateTile({
+            index: index,
+            isPressed: false,
+        });
+
+        if (this.tiles[index.x][index.y].isRevealed) {
+            // If the tile is already revealed
+            // Cover all adjacent non-flagged tiles aswell
+            const adjacentTiles = this.getAdjacentTilesFor(index);
+            for (const adjacentTile of adjacentTiles) {
+                // If the adjacent tile is flagged do not cover it
+                if (adjacentTile.isFlagged) continue;
+
+                update.updateTile({
+                    index: adjacentTile.index,
+                    isCovered: true,
+                });
+            }
+        }
+
         if (!tile.isRevealed) {
             // If the tile has not been revealed yet
             // Reaveal the tile
@@ -139,7 +160,7 @@ export class MinesweeperState {
     if the tile is revealed, it does not get flagged
     */
     public flagTile(index: TileIndex): MinesweeperState {
-        // If the game is over or the tile is flagged do nothing
+        // If the game is over or the tile is already revealed do nothing
         if (this.isEnded) return this;
         if (this.tiles[index.x][index.y].isRevealed) return this;
 
@@ -154,6 +175,86 @@ export class MinesweeperState {
             index: tile.index,
             isFlagged: !tile.isFlagged,
         });
+
+        return updateState(this, update);
+    }
+
+    /*
+    Function takes the index of a tile on the board
+    if the tile is flagged do nothing
+    if the tile is not flagged, hide the cover for the tile
+    if the tile is already revealed, hide the cover for all
+    non-flagged adjacent tiles
+    */
+    public pressTile(index: TileIndex): MinesweeperState {
+        // If the game is over or the tile is flagged do nothing
+        if (this.isEnded) return this;
+        if (this.tiles[index.x][index.y].isFlagged) return this;
+
+        // If the tile can be pressed
+        // Initialize state update object
+        const update: StateUpdate = new StateUpdate();
+
+        // Press the tile
+        update.updateTile({
+            index: index,
+            isPressed: true,
+        });
+
+        if (this.tiles[index.x][index.y].isRevealed) {
+            // If the tile is already revealed
+            // Remove cover from all adjacent non-flagged tiles aswell
+            const adjacentTiles = this.getAdjacentTilesFor(index);
+            for (const adjacentTile of adjacentTiles) {
+                // If the adjacent tile is flagged do not uncover it
+                if (adjacentTile.isFlagged) continue;
+
+                update.updateTile({
+                    index: adjacentTile.index,
+                    isCovered: false,
+                });
+            }
+        }
+
+        return updateState(this, update);
+    }
+
+    /*
+    Function takes the index of a tile on the board
+    if the tile is not pressed do nothing
+    if the tile is pressed, release it
+    if the tile is already revealed, also release all adjacent tiles
+    */
+    public releaseTile(index: TileIndex): MinesweeperState {
+        // If the game is over or the tile is flagged or the tile is not pressed do nothing
+        if (this.isEnded) return this;
+        if (this.tiles[index.x][index.y].isFlagged) return this;
+        if (!this.tiles[index.x][index.y].isPressed) return this;
+
+        // If the tile can be released
+        // Initialize state update object
+        const update: StateUpdate = new StateUpdate();
+
+        // Release the tile
+        update.updateTile({
+            index: index,
+            isPressed: false,
+        });
+
+        if (this.tiles[index.x][index.y].isRevealed) {
+            // If the tile is already revealed
+            // Cover all adjacent non-flagged tiles aswell
+            const adjacentTiles = this.getAdjacentTilesFor(index);
+            for (const adjacentTile of adjacentTiles) {
+                // If the adjacent tile is flagged do not cover it
+                if (adjacentTile.isFlagged) continue;
+
+                update.updateTile({
+                    index: adjacentTile.index,
+                    isCovered: true,
+                });
+            }
+        }
 
         return updateState(this, update);
     }

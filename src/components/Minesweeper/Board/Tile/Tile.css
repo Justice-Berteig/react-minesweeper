@@ -62,7 +62,7 @@
     background-color: red;
 }
 
-.tile[data-is-revealed="false"]::before {
+.tile[data-is-covered="true"][data-is-revealed="false"]::before {
     content: "";
     background-color: var(--clr-tile-cover);
     border: calc(var(--side-length) / 6) outset;
@@ -79,6 +79,9 @@
     transform: translate(-50%, -50%);
 
     box-sizing: border-box;
+
+    /* Stop cover from being clickable */
+    pointer-events: none;
 }
 
 .tile[data-is-revealed="false"][data-is-flagged="true"]::after {
@@ -100,6 +103,9 @@
     transform: translate(-50%, -50%);
 
     box-sizing: border-box;
+
+    /* Stop flag from being clickable */
+    pointer-events: none;
 }
 
 .tile[data-is-revealed="false"][data-is-flagged="true"][data-user-error="true"]::before {

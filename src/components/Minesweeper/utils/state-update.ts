@@ -1,7 +1,7 @@
 import { MinesweeperState } from "./minesweeper-state.ts";
 import { revealMines } from "./reveal-mines.ts";
 import { TileIndex } from "./tile-index.ts";
-import { TileUpdate, updateTile } from "./tile-update.ts";
+import { TileUpdate, mergeTileUpdates, updateTile } from "./tile-update.ts";
 
 export class StateUpdate {
     private tileUpdates: TileUpdate[];
@@ -43,12 +43,7 @@ export class StateUpdate {
         if (existingTileUpdate !== null) {
             // If an existing update was found
             // Merge given update with existing update
-            if (tileUpdate.isFlagged !== undefined)
-                existingTileUpdate.isFlagged = tileUpdate.isFlagged;
-            if (tileUpdate.isRevealed !== undefined)
-                existingTileUpdate.isRevealed = tileUpdate.isRevealed;
-            if (tileUpdate.userError !== undefined)
-                existingTileUpdate.userError = tileUpdate.userError;
+            mergeTileUpdates(existingTileUpdate, tileUpdate);
         } else {
             // Else add the tile update to the list
             this.tileUpdates.push(tileUpdate);

@@ -44,22 +44,59 @@ function Tile(props: TProps) {
     return (
         <button
             className={classes.join(" ")}
-            onClick={() => {
-                // When the tile is left clicked
-                props.dispatch({
-                    type: ActionType.LCLICK,
-                    index: props.tile.index,
-                });
+            onMouseOver={(event) => {
+                if (event.buttons === 1) {
+                    // When moused over with the left mouse button pressed down
+                    // Dispatch pressed action
+                    props.dispatch({
+                        type: ActionType.PRESS_TILE,
+                        index: props.tile.index,
+                    });
+                }
+            }}
+            onMouseOut={(event) => {
+                if (event.buttons === 1) {
+                    // When moused out with the left mouse button pressed down
+                    // Dispatch lifted action
+                    props.dispatch({
+                        type: ActionType.RELEASE_TILE,
+                        index: props.tile.index,
+                    });
+                }
+            }}
+            onMouseDown={(event) => {
+                if (event.button === 0) {
+                    // When the left mouse button is pressed down
+                    // Dispatch pressed action
+                    props.dispatch({
+                        type: ActionType.PRESS_TILE,
+                        index: props.tile.index,
+                    });
+                } else if (event.button === 2) {
+                    // When the right mouse button is pressed down
+                    // Dispatch flag action
+                    props.dispatch({
+                        type: ActionType.FLAG_TILE,
+                        index: props.tile.index,
+                    });
+                }
+            }}
+            onMouseUp={(event) => {
+                if (event.button === 0) {
+                    // When the left mouse button is lifted up
+                    // Dispatch activate action
+                    props.dispatch({
+                        type: ActionType.ACTIVATE_TILE,
+                        index: props.tile.index,
+                    });
+                }
             }}
             onContextMenu={(e) => {
                 // When the tile is right clicked
                 // Prevent context menu from popping up
                 e.preventDefault();
-                props.dispatch({
-                    type: ActionType.RCLICK,
-                    index: props.tile.index,
-                });
             }}
+            data-is-covered={props.tile.isCovered && !props.tile.isPressed}
             data-is-flagged={props.tile.isFlagged}
             data-is-revealed={props.tile.isRevealed}
             data-user-error={props.tile.userError}
