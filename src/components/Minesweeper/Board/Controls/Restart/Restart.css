@@ -1,0 +1,22 @@
+.restart {
+    height: 4rem;
+    width: 4rem;
+    padding: 0.2rem;
+    box-sizing: border-box;
+
+    border: 0.5rem solid;
+    border-color: var(--clr-outset);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.restart:active {
+    border-color: var(--clr-inset);
+}
+
+.restart > img {
+    height: 90%;
+    object-fit: cover;
+}

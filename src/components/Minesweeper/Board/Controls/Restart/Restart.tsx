@@ -1,3 +1,5 @@
+import "./Restart.css";
+
 type TProps = {
     restartGame: () => void;
     isEnded: boolean;
@@ -6,26 +8,26 @@ type TProps = {
 };
 
 function Restart(props: TProps) {
-    let imageName: string;
+    let imagePath: string;
     if (props.isEnded) {
         if (props.isWon) {
-            imageName = "sunglasses";
+            imagePath = "face-sunglasses.svg";
         } else {
-            imageName = "dead";
+            imagePath = "face-dead.svg";
         }
     } else {
-        imageName = "smile";
+        imagePath = "face-happy.svg";
     }
 
     return (
         <button
             className="restart"
-            data-image-name={imageName}
             onClick={() => {
                 props.restartGame();
             }}
+            draggable="false"
         >
-            {imageName}
+            <img src={imagePath}></img>
         </button>
     );
 }

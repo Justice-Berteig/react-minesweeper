@@ -1,5 +1,5 @@
 .tile {
-    --side-length: 2rem;
+    --side-length: 2.5rem;
 
     background-color: var(--clr-tile-bg);
     width: var(--side-length);
@@ -7,7 +7,7 @@
 
     color: var(--clr-neutral-0);
     font-family: Source Code Pro;
-    font-size: 1.8rem;
+    font-size: calc(var(--side-length) - (var(--side-length) / 10));
     font-weight: 800;
 
     display: flex;
@@ -65,8 +65,8 @@
 .tile[data-is-covered="true"][data-is-revealed="false"]::before {
     content: "";
     background-color: var(--clr-tile-cover);
-    border: calc(var(--side-length) / 6) outset;
-    border-color: var(--clr-tile-cover-border);
+    border: calc(var(--side-length) / 6) solid;
+    border-color: var(--clr-outset);
 
     position: absolute;
 

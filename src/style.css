@@ -13,11 +13,22 @@
     --clr-neutral-10: #191919;
     --clr-neutral-0: #000000;
 
-    --clr-tile-bg: #c6c6c6;
-    --clr-tile-bg-border: gray;
+    --clr-neutral-highlight: white;
+    --clr-neutral-main: #c6c6c6;
+    --clr-neutral-shadow: gray;
 
-    --clr-tile-cover: #c6c6c6;
-    --clr-tile-cover-border: white gray gray white;
+    --clr-inset: var(--clr-neutral-shadow) var(--clr-neutral-highlight)
+        var(--clr-neutral-highlight) var(--clr-neutral-shadow);
+    --clr-outset: var(--clr-neutral-highlight) var(--clr-neutral-shadow)
+        var(--clr-neutral-shadow) var(--clr-neutral-highlight);
+
+    --clr-tile-bg: var(--clr-neutral-main);
+    --clr-tile-bg-border: var(--clr-neutral-shadow);
+
+    --clr-tile-cover: var(--clr-neutral-main);
+    --clr-tile-cover-border: var(--clr-neutral-highlight)
+        var(--clr-neutral-shadow) var(--clr-neutral-shadow)
+        var(--clr-neutral-highlight);
 
     --clr-one: blue;
     --clr-two: green;

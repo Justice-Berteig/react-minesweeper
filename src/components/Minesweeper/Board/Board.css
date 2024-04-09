@@ -1,13 +1,21 @@
 .board {
+    background-color: var(--clr-neutral-main);
+
     display: flex;
     flex-direction: column;
+    gap: 1rem;
 
-    border: 5px solid black;
+    border: 0.5rem outset;
+    border-color: var(--clr-outset);
+    padding: 1rem;
 }
 
 .board > .tiles {
     display: flex;
     flex-direction: row;
+
+    border: 0.5rem solid;
+    border-color: var(--clr-inset);
 }
 
 .board > .tiles > .column {

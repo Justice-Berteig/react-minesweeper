@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import NumberDisplay from "../NumberDisplay";
 
 type TProps = {
     isEnded: boolean;
@@ -27,6 +28,8 @@ function Timer(props: TProps) {
         } else if (props.isStarted && props.isEnded) {
             // If the game just ended
             // Stop the timer
+            console.log("GAME ENDED! FINAL TIME:");
+            console.log(timeToSeconds(time, 5) + "s");
             clearInterval(intervalID.current);
         }
 
@@ -35,7 +38,18 @@ function Timer(props: TProps) {
         };
     }, [props.isEnded, props.isStarted]);
 
-    return <div className="timer">{Math.floor(time / 1000)}</div>;
+    // return <div className="timer">{Math.floor(time / 1000)}</div>;
+    return (
+        <NumberDisplay
+            digits={3}
+            name="timer"
+            number={Math.floor(time / 1000)}
+        />
+    );
+}
+
+function timeToSeconds(time: number, precision: number): string {
+    return (Math.floor((time / 1000) * 100) / 100).toFixed(precision);
 }
 
 export default Timer;

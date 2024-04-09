@@ -1,0 +1,18 @@
+.number-display {
+    background-color: black;
+
+    height: 4rem;
+    padding: 0.3rem;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: row;
+    gap: 0.3rem;
+
+    border: 0.2rem solid;
+    border-color: var(--clr-inset);
+}
+
+.number-display > img {
+    height: 100%;
+}
