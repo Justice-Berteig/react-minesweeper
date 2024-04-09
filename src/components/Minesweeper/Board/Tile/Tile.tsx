@@ -28,7 +28,7 @@ function Tile(props: TProps) {
     let tileContents: ReactElement;
     if (props.tile.isRevealed && props.tile.hasMine) {
         // If the tile is revealed and has a mine
-        tileContents = <img src="mine.svg"></img>;
+        tileContents = <img src="mine.svg" draggable="false"></img>;
     } else if (
         props.tile.isRevealed &&
         props.tile.adjacentMines > 0 &&
