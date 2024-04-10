@@ -7,7 +7,7 @@
 
     color: var(--clr-neutral-0);
     font-family: Source Code Pro;
-    font-size: calc(var(--side-length) - (var(--side-length) / 10));
+    font-size: calc(var(--side-length) - (var(--side-length) / 16));
     font-weight: 800;
 
     display: flex;
