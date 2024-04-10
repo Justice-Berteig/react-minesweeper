@@ -1,3 +1,4 @@
+import { flagMines } from "./flag-mines.ts";
 import { MinesweeperState } from "./minesweeper-state.ts";
 import { revealMines } from "./reveal-mines.ts";
 import { TileIndex } from "./tile-index.ts";
@@ -137,6 +138,8 @@ export function updateState(
                 // End the game as a win
                 newState.isEnded = true;
                 newState.isWon = true;
+                // Flag all the mines
+                flagMines(newState, update);
             }
         }
 
