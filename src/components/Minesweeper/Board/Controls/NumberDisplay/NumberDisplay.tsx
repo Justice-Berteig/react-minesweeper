@@ -11,7 +11,13 @@ function NumberDisplay(props: TProps) {
     return (
         <div className="number-display">
             {numToImgPaths(props.number, props.digits).map((imgPath, index) => {
-                return <img src={imgPath} key={props.name + "-" + index}></img>;
+                return (
+                    <img
+                        src={imgPath}
+                        key={props.name + "-" + index}
+                        draggable="false"
+                    ></img>
+                );
             })}
         </div>
     );

@@ -27,7 +27,7 @@ function Restart(props: TProps) {
             }}
             draggable="false"
         >
-            <img src={imagePath}></img>
+            <img src={imagePath} draggable="false"></img>
         </button>
     );
 }
