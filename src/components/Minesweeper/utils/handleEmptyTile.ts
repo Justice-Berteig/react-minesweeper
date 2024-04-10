@@ -31,7 +31,12 @@ export function handleEmptyTile(
         ) {
             // If the tile has not been revealed
             // Reveal the tile
-            update.updateTile({ index: adjacentTile.index, isRevealed: true });
+            update.updateTile({
+                index: adjacentTile.index,
+                isFlagged: adjacentTile.isFlagged ? false : undefined,
+                isRevealed: true,
+            });
+
             // Add the tile to the list of revealed tiles
             revealedTiles.push(adjacentTile.index);
             // Recursively call this function with the tile
