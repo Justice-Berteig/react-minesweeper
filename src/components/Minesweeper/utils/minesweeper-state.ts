@@ -23,15 +23,15 @@ export class MinesweeperState {
         tiles?: MinesweeperTile[][]
     ) {
         this.difficulty = difficulty;
-        this.isEnded = isEnded ? isEnded : false;
-        this.isStarted = isStarted ? isStarted : false;
-        this.isWon = isWon ? isWon : false;
-        if (remainingFlags != undefined) {
+        this.isEnded = isEnded !== undefined ? isEnded : false;
+        this.isStarted = isStarted !== undefined ? isStarted : false;
+        this.isWon = isWon !== undefined ? isWon : false;
+        if (remainingFlags !== undefined) {
             this.remainingFlags = remainingFlags;
         } else {
             this.remainingFlags = difficulty.startingMines;
         }
-        if (revealedTiles != undefined) {
+        if (revealedTiles !== undefined) {
             this.revealedTiles = revealedTiles;
         } else {
             this.revealedTiles = 0;
@@ -425,35 +425,6 @@ export class MinesweeperState {
             this.remainingFlags,
             this.revealedTiles,
             [...this.tiles]
-        );
-    }
-
-    /*
-    Function creates and returns a deep copy of the state object
-    */
-    public createDeepCopy(): MinesweeperState {
-        const deepCopiedTiles: MinesweeperTile[][] = [];
-
-        for (let x = 0; x < this.tiles.length; x++) {
-            // For each column of tiles
-            // Create a new tile column
-            const tileColumn: MinesweeperTile[] = [];
-            for (let y = 0; y < this.tiles[0].length; y++) {
-                // For each tile in the column
-                // Deep copy the tile
-                tileColumn.push(this.tiles[x][y].createCopy());
-            }
-            deepCopiedTiles.push(tileColumn);
-        }
-
-        return new MinesweeperState(
-            this.difficulty,
-            this.isEnded,
-            this.isStarted,
-            this.isWon,
-            this.remainingFlags,
-            this.revealedTiles,
-            deepCopiedTiles
         );
     }
 }
