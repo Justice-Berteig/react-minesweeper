@@ -12,36 +12,40 @@ type TProps = {
 function Board(props: TProps) {
     return (
         <div className="board">
-            <Controls
-                remainingFlags={props.state.remainingFlags}
-                restartGame={() => {
-                    props.dispatch({
-                        type: ActionType.RESET,
-                        newDifficulty: props.state.difficulty,
-                    });
-                }}
-                isEnded={props.state.isEnded}
-                isStarted={props.state.isStarted}
-                isWon={props.state.isWon}
-            />
-            <div className="tiles">
-                {/* For each row of tiles */}
-                {props.state.tiles.map((column, xIndex) => {
-                    return (
-                        <div className="column" key={"column-" + xIndex}>
-                            {/* For each tile in the row */}
-                            {column.map((tile, yIndex) => {
-                                return (
-                                    <Tile
-                                        key={"tile-" + xIndex + "-" + yIndex}
-                                        tile={tile}
-                                        dispatch={props.dispatch}
-                                    />
-                                );
-                            })}
-                        </div>
-                    );
-                })}
+            <div className="board-contents">
+                <Controls
+                    remainingFlags={props.state.remainingFlags}
+                    restartGame={() => {
+                        props.dispatch({
+                            type: ActionType.RESET,
+                            newDifficulty: props.state.difficulty,
+                        });
+                    }}
+                    isEnded={props.state.isEnded}
+                    isStarted={props.state.isStarted}
+                    isWon={props.state.isWon}
+                />
+                <div className="tiles">
+                    {/* For each row of tiles */}
+                    {props.state.tiles.map((column, xIndex) => {
+                        return (
+                            <div className="column" key={"column-" + xIndex}>
+                                {/* For each tile in the row */}
+                                {column.map((tile, yIndex) => {
+                                    return (
+                                        <Tile
+                                            key={
+                                                "tile-" + xIndex + "-" + yIndex
+                                            }
+                                            tile={tile}
+                                            dispatch={props.dispatch}
+                                        />
+                                    );
+                                })}
+                            </div>
+                        );
+                    })}
+                </div>
             </div>
         </div>
     );

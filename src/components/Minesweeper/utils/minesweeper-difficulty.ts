@@ -1,8 +1,8 @@
 export enum DifficultyLevel {
-    CUSTOM = 0,
-    BEGINNER = 1,
-    INTERMEDIATE = 2,
-    EXPERT = 3,
+    BEGINNER = 0,
+    INTERMEDIATE = 1,
+    EXPERT = 2,
+    CUSTOM = 3,
 }
 
 export class MinesweeperDifficulty {

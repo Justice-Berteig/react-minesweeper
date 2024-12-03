@@ -1,4 +1,8 @@
 .board {
+    display: inline-block;
+}
+
+.board > .board-contents {
     background-color: var(--clr-neutral-main);
 
     display: flex;
@@ -10,7 +14,7 @@
     padding: 1rem;
 }
 
-.board > .tiles {
+.board > .board-contents > .tiles {
     display: flex;
     flex-direction: row;
 
@@ -18,7 +22,7 @@
     border-color: var(--clr-inset);
 }
 
-.board > .tiles > .column {
+.board > .board-contents > .tiles > .column {
     display: flex;
     flex-direction: column;
 }

@@ -1,4 +1,4 @@
-import { handleEmptyTile } from "./handleEmptyTile.ts";
+import { handleEmptyTile } from "./handle-empty-tile.ts";
 import { MinesweeperDifficulty } from "./minesweeper-difficulty.ts";
 import { MinesweeperTile } from "./minesweeper-tile.ts";
 import { StateUpdate, updateState } from "./state-update.ts";
