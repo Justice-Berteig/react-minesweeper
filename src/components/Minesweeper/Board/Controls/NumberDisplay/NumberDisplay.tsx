@@ -1,4 +1,7 @@
+// Utility imports
 import { numToImgPaths } from "./util/num-to-img-paths";
+
+// Stylesheet imports
 import "./NumberDisplay.css";
 
 type TProps = {

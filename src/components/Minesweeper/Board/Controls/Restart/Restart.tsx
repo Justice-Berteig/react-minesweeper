@@ -1,3 +1,4 @@
+// Stylesheet imports
 import "./Restart.css";
 
 type TProps = {

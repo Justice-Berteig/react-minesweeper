@@ -1,7 +1,12 @@
+// Component imports
 import Controls from "./Controls";
 import Tile from "./Tile";
+
+// Type imports
 import { ActionType, MinesweeperAction } from "../utils/minesweeper-action.ts";
 import { MinesweeperState } from "../utils/minesweeper-state.ts";
+
+// Stylesheet imports
 import "./Board.css";
 
 type TProps = {

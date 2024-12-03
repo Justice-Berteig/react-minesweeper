@@ -79,3 +79,9 @@ button {
     cursor: pointer;
     outline: inherit;
 }
+
+/* Utility styles */
+
+*.hidden {
+    display: none;
+}

@@ -1,6 +1,9 @@
+// Component imports
 import RemainingMines from "./RemainingFlags";
 import Restart from "./Restart";
 import Timer from "./Timer";
+
+// Stylesheet imports
 import "./Controls.css";
 
 type TProps = {

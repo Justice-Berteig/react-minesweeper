@@ -2,6 +2,12 @@
     padding: var(--padding-small);
 
     display: flex;
+    flex-direction: column;
+    gap: var(--gap-small);
+}
+
+.difficulty-buttons {
+    display: flex;
     flex-direction: row;
     gap: var(--gap-small);
 }

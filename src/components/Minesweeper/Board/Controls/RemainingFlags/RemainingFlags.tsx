@@ -1,3 +1,4 @@
+// Component imports
 import NumberDisplay from "../NumberDisplay";
 
 type TProps = {

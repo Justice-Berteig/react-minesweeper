@@ -1,10 +1,16 @@
 import { ReactElement } from "react";
-import { numberToString } from "./util/number-to-string.ts";
+
+// Type imports
 import {
     ActionType,
     MinesweeperAction,
 } from "../../utils/minesweeper-action.ts";
 import { MinesweeperTile } from "../../utils/minesweeper-tile.ts";
+
+// Utility imports
+import { numberToString } from "./util/number-to-string.ts";
+
+// Stylesheet imports
 import "./Tile.css";
 
 type TProps = {

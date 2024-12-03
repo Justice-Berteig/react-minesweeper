@@ -1,12 +1,20 @@
 import { useReducer } from "react";
+
+// Component imports
 import Board from "./Board";
 import DifficultySelect from "./DifficultySelect";
+
+// Type imports
 import { ActionType, MinesweeperAction } from "./utils/minesweeper-action.ts";
+import { MinesweeperState } from "./utils/minesweeper-state.ts";
+
+// Utility imports
 import {
     DifficultyLevel,
     MinesweeperDifficulty,
 } from "./utils/minesweeper-difficulty.ts";
-import { MinesweeperState } from "./utils/minesweeper-state.ts";
+
+// Stylesheet imports
 import "./Minesweeper.css";
 
 function reducer(

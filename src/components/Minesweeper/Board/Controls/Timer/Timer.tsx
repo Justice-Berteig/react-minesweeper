@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from "react";
+
+// Component imports
 import NumberDisplay from "../NumberDisplay";
 
 type TProps = {
