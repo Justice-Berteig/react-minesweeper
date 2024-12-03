@@ -80,7 +80,7 @@ function Minesweeper() {
     );
 
     return (
-        <div className="minesweeper">
+        <div className="minesweeper" onContextMenu={(e) => e.preventDefault()}>
             <DifficultySelect dispatch={dispatch} />
             <Board state={state} dispatch={dispatch} />
         </div>
