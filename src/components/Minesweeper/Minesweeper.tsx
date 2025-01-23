@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
 
 // Component imports
 import Board from "./Board";
@@ -13,10 +13,15 @@ import {
     DifficultyLevel,
     MinesweeperDifficulty,
 } from "./utils/minesweeper-difficulty.ts";
+import { rangeToArray } from "./utils/range-to-array.ts";
 
 // Stylesheet imports
 import "./Minesweeper.css";
 
+/*
+Reducer function takes the previous MinesweeperState and a MinesweeperAction
+then returns a new updated MinesweeperState based on the action that was passed
+*/
 function reducer(
     prevState: MinesweeperState,
     action: MinesweeperAction
@@ -72,6 +77,10 @@ function reducerInit(difficulty: DifficultyLevel): MinesweeperState {
     return new MinesweeperState(new MinesweeperDifficulty(difficulty));
 }
 
+/*
+Minesweeper component contains the Minesweeper board
+as well as any additional settings for the game
+*/
 function Minesweeper() {
     const [state, dispatch] = useReducer(
         reducer,
@@ -79,10 +88,61 @@ function Minesweeper() {
         reducerInit
     );
 
+    // State for the scale and brightness of the minesweeper board
+    const [boardScale, setBoardScale] = useState<number>(100);
+    const [boardBrightness, setBoardBrightness] = useState<number>(100);
+
+    // Values to define the range of the scale
+    const minScale = 50;
+    const maxScale = 150;
+    const incScale = 5;
+
+    // Values to define the range of the brightness
+    const minBrightness = 25;
+    const maxBrightness = 100;
+    const incBrightness = 5;
+
     return (
         <div className="minesweeper" onContextMenu={(e) => e.preventDefault()}>
+            <select
+                id="scale-select"
+                onChange={(e) => {
+                    setBoardScale(parseInt(e.target.value));
+                }}
+                value={boardScale}
+            >
+                {rangeToArray(minScale, maxScale, incScale).map((value) => {
+                    return (
+                        <option key={"scale-" + value} value={value}>
+                            {value}%
+                        </option>
+                    );
+                })}
+            </select>
+            <select
+                id="brightness-select"
+                onChange={(e) => {
+                    setBoardBrightness(parseInt(e.target.value));
+                }}
+                value={boardBrightness}
+            >
+                {rangeToArray(minBrightness, maxBrightness, incBrightness).map(
+                    (value) => {
+                        return (
+                            <option key={"brightness-" + value} value={value}>
+                                {value}%
+                            </option>
+                        );
+                    }
+                )}
+            </select>
             <DifficultySelect dispatch={dispatch} />
-            <Board state={state} dispatch={dispatch} />
+            <Board
+                brightness={boardBrightness}
+                scale={boardScale}
+                state={state}
+                dispatch={dispatch}
+            />
         </div>
     );
 }

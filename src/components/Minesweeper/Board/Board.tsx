@@ -10,13 +10,19 @@ import { MinesweeperState } from "../utils/minesweeper-state.ts";
 import "./Board.css";
 
 type TProps = {
+    brightness: number;
+    scale: number;
     state: MinesweeperState;
     dispatch: (object: MinesweeperAction) => void;
 };
 
 function Board(props: TProps) {
     return (
-        <div className="board">
+        <div
+            className="board"
+            data-scale={props.scale}
+            data-brightness={props.brightness}
+        >
             <div className="board-contents">
                 <Controls
                     remainingFlags={props.state.remainingFlags}

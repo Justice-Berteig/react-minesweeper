@@ -26,3 +26,155 @@
     display: flex;
     flex-direction: column;
 }
+
+/* Styles for changing scale of the board */
+
+.board[data-scale="50"] {
+    transform: scale(50%);
+}
+
+.board[data-scale="55"] {
+    transform: scale(55%);
+}
+
+.board[data-scale="60"] {
+    transform: scale(60%);
+}
+
+.board[data-scale="65"] {
+    transform: scale(65%);
+}
+
+.board[data-scale="70"] {
+    transform: scale(70%);
+}
+
+.board[data-scale="75"] {
+    transform: scale(75%);
+}
+
+.board[data-scale="80"] {
+    transform: scale(80%);
+}
+
+.board[data-scale="85"] {
+    transform: scale(85%);
+}
+
+.board[data-scale="90"] {
+    transform: scale(90%);
+}
+
+.board[data-scale="95"] {
+    transform: scale(95%);
+}
+
+.board[data-scale="100"] {
+    transform: scale(100%);
+}
+
+.board[data-scale="105"] {
+    transform: scale(105%);
+}
+
+.board[data-scale="110"] {
+    transform: scale(110%);
+}
+
+.board[data-scale="115"] {
+    transform: scale(115%);
+}
+
+.board[data-scale="120"] {
+    transform: scale(120%);
+}
+
+.board[data-scale="125"] {
+    transform: scale(125%);
+}
+
+.board[data-scale="130"] {
+    transform: scale(130%);
+}
+
+.board[data-scale="135"] {
+    transform: scale(135%);
+}
+
+.board[data-scale="140"] {
+    transform: scale(140%);
+}
+
+.board[data-scale="145"] {
+    transform: scale(145%);
+}
+
+.board[data-scale="150"] {
+    transform: scale(150%);
+}
+
+/* Styles for changing brightness of the board */
+
+.board[data-brightness="25"] {
+    filter: brightness(25%);
+}
+
+.board[data-brightness="30"] {
+    filter: brightness(30%);
+}
+
+.board[data-brightness="35"] {
+    filter: brightness(35%);
+}
+
+.board[data-brightness="40"] {
+    filter: brightness(40%);
+}
+
+.board[data-brightness="45"] {
+    filter: brightness(45%);
+}
+
+.board[data-brightness="50"] {
+    filter: brightness(50%);
+}
+
+.board[data-brightness="55"] {
+    filter: brightness(55%);
+}
+
+.board[data-brightness="60"] {
+    filter: brightness(60%);
+}
+
+.board[data-brightness="65"] {
+    filter: brightness(65%);
+}
+
+.board[data-brightness="70"] {
+    filter: brightness(70%);
+}
+
+.board[data-brightness="75"] {
+    filter: brightness(75%);
+}
+
+.board[data-brightness="80"] {
+    filter: brightness(80%);
+}
+
+.board[data-brightness="85"] {
+    filter: brightness(85%);
+}
+
+.board[data-brightness="90"] {
+    filter: brightness(90%);
+}
+
+.board[data-brightness="95"] {
+    filter: brightness(95%);
+}
+
+.board[data-brightness="100"] {
+    filter: brightness(100%);
+}
