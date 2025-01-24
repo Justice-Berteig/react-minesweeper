@@ -10,8 +10,8 @@ import { MinesweeperState } from "../utils/minesweeper-state.ts";
 import "./Board.css";
 
 type TProps = {
-    brightness: number;
-    scale: number;
+    brightness: string;
+    scale: string;
     state: MinesweeperState;
     dispatch: (object: MinesweeperAction) => void;
 };

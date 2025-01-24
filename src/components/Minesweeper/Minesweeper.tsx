@@ -3,6 +3,7 @@ import { useReducer, useState } from "react";
 // Component imports
 import Board from "./Board";
 import DifficultySelect from "./DifficultySelect";
+import Dropdown from "./Dropdown/Dropdown.tsx";
 
 // Type imports
 import { ActionType, MinesweeperAction } from "./utils/minesweeper-action.ts";
@@ -89,8 +90,8 @@ function Minesweeper() {
     );
 
     // State for the scale and brightness of the minesweeper board
-    const [boardScale, setBoardScale] = useState<number>(100);
-    const [boardBrightness, setBoardBrightness] = useState<number>(100);
+    const [boardScale, setBoardScale] = useState<string>("100%");
+    const [boardBrightness, setBoardBrightness] = useState<string>("100%");
 
     // Values to define the range of the scale
     const minScale = 50;
@@ -104,39 +105,33 @@ function Minesweeper() {
 
     return (
         <div className="minesweeper" onContextMenu={(e) => e.preventDefault()}>
-            <select
-                id="scale-select"
-                onChange={(e) => {
-                    setBoardScale(parseInt(e.target.value));
-                }}
-                value={boardScale}
-            >
-                {rangeToArray(minScale, maxScale, incScale).map((value) => {
-                    return (
-                        <option key={"scale-" + value} value={value}>
-                            {value}%
-                        </option>
-                    );
-                })}
-            </select>
-            <select
-                id="brightness-select"
-                onChange={(e) => {
-                    setBoardBrightness(parseInt(e.target.value));
-                }}
-                value={boardBrightness}
-            >
-                {rangeToArray(minBrightness, maxBrightness, incBrightness).map(
-                    (value) => {
-                        return (
-                            <option key={"brightness-" + value} value={value}>
-                                {value}%
-                            </option>
-                        );
-                    }
-                )}
-            </select>
-            <DifficultySelect dispatch={dispatch} />
+            <div className="settings">
+                <DifficultySelect dispatch={dispatch} />
+                <Dropdown
+                    iconPath={null}
+                    name="scale-select"
+                    options={rangeToArray(minScale, maxScale, incScale).map(
+                        (value) => {
+                            return value + "%";
+                        }
+                    )}
+                    setValue={setBoardScale}
+                    value={boardScale}
+                />
+                <Dropdown
+                    iconPath={null}
+                    name="brightness-select"
+                    options={rangeToArray(
+                        minBrightness,
+                        maxBrightness,
+                        incBrightness
+                    ).map((value) => {
+                        return value + "%";
+                    })}
+                    setValue={setBoardBrightness}
+                    value={boardBrightness}
+                />
+            </div>
             <Board
                 brightness={boardBrightness}
                 scale={boardScale}
