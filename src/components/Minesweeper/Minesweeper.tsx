@@ -3,7 +3,6 @@ import { useReducer, useState } from "react";
 // Component imports
 import Board from "./Board";
 import DifficultySelect from "./DifficultySelect";
-import Dropdown from "./Dropdown/Dropdown.tsx";
 
 // Type imports
 import { ActionType, MinesweeperAction } from "./utils/minesweeper-action.ts";
@@ -14,10 +13,10 @@ import {
     DifficultyLevel,
     MinesweeperDifficulty,
 } from "./utils/minesweeper-difficulty.ts";
-import { rangeToArray } from "./utils/range-to-array.ts";
 
 // Stylesheet imports
 import "./Minesweeper.css";
+import StyleSelect from "./StyleSelect/StyleSelect.tsx";
 
 /*
 Reducer function takes the previous MinesweeperState and a MinesweeperAction
@@ -83,6 +82,7 @@ Minesweeper component contains the Minesweeper board
 as well as any additional settings for the game
 */
 function Minesweeper() {
+    // Setup initial state with default difficulty of beginner
     const [state, dispatch] = useReducer(
         reducer,
         DifficultyLevel.BEGINNER,
@@ -93,43 +93,15 @@ function Minesweeper() {
     const [boardScale, setBoardScale] = useState<string>("100%");
     const [boardBrightness, setBoardBrightness] = useState<string>("100%");
 
-    // Values to define the range of the scale
-    const minScale = 50;
-    const maxScale = 150;
-    const incScale = 5;
-
-    // Values to define the range of the brightness
-    const minBrightness = 25;
-    const maxBrightness = 100;
-    const incBrightness = 5;
-
     return (
         <div className="minesweeper" onContextMenu={(e) => e.preventDefault()}>
             <div className="settings">
                 <DifficultySelect dispatch={dispatch} />
-                <Dropdown
-                    iconPath={null}
-                    name="scale-select"
-                    options={rangeToArray(minScale, maxScale, incScale).map(
-                        (value) => {
-                            return value + "%";
-                        }
-                    )}
-                    setValue={setBoardScale}
-                    value={boardScale}
-                />
-                <Dropdown
-                    iconPath={null}
-                    name="brightness-select"
-                    options={rangeToArray(
-                        minBrightness,
-                        maxBrightness,
-                        incBrightness
-                    ).map((value) => {
-                        return value + "%";
-                    })}
-                    setValue={setBoardBrightness}
-                    value={boardBrightness}
+                <StyleSelect
+                    boardScale={boardScale}
+                    setBoardScale={setBoardScale}
+                    boardBrightness={boardBrightness}
+                    setBoardBrightness={setBoardBrightness}
                 />
             </div>
             <Board
