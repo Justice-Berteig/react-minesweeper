@@ -90,8 +90,23 @@ function Minesweeper() {
     );
 
     // State for the scale and brightness of the minesweeper board
-    const [boardScale, setBoardScale] = useState<string>("100%");
-    const [boardBrightness, setBoardBrightness] = useState<string>("100%");
+    // First get inital scale and brightness from local storage
+    let initialScale = localStorage.getItem("board-scale");
+    let initialBrightness = localStorage.getItem("board-brightness");
+    if(!initialScale) initialScale = "100%";
+    if(!initialBrightness) initialBrightness = "100%";
+    // Create React state for both
+    const [boardScale, setBoardScale] = useState<string>(initialScale);
+    const [boardBrightness, setBoardBrightness] = useState<string>(initialBrightness);
+    // Custom functions for updating scale/brightness that also sets value in local storage
+    function updateBoardScale(newBoardScale) {
+        localStorage.setItem("board-scale", newBoardScale);
+        setBoardScale(newBoardScale);
+    }
+    function updateBoardBrightness(newBoardBrightness) {
+        localStorage.setItem("board-brightness", newBoardBrightness);
+        setBoardBrightness(newBoardBrightness);
+    }
 
     return (
         <div className="minesweeper" onContextMenu={(e) => e.preventDefault()}>
@@ -99,9 +114,9 @@ function Minesweeper() {
                 <DifficultySelect dispatch={dispatch} />
                 <StyleSelect
                     boardScale={boardScale}
-                    setBoardScale={setBoardScale}
+                    setBoardScale={updateBoardScale}
                     boardBrightness={boardBrightness}
-                    setBoardBrightness={setBoardBrightness}
+                    setBoardBrightness={updateBoardBrightness}
                 />
             </div>
             <Board
