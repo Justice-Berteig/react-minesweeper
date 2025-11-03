@@ -3,6 +3,7 @@ import { useReducer, useState } from "react";
 // Component imports
 import Board from "./Board";
 import DifficultySelect from "./DifficultySelect";
+import StyleSelect from "./StyleSelect/StyleSelect.tsx";
 
 // Type imports
 import { ActionType, MinesweeperAction } from "./utils/minesweeper-action.ts";
@@ -16,7 +17,6 @@ import {
 
 // Stylesheet imports
 import "./Minesweeper.css";
-import StyleSelect from "./StyleSelect/StyleSelect.tsx";
 
 /*
 Reducer function takes the previous MinesweeperState and a MinesweeperAction

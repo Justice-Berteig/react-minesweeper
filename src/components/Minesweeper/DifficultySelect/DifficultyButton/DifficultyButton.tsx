@@ -5,6 +5,9 @@ import {
     MinesweeperDifficulty,
 } from "../../utils/minesweeper-difficulty";
 
+// Stylesheet imports
+import "./DifficultyButton.css";
+
 type TProps = {
     difficulty: MinesweeperDifficulty;
     dispatch: (action: MinesweeperAction) => void;
@@ -17,6 +20,7 @@ type TProps = {
 function DifficultyButton(props: TProps) {
     return (
         <button
+            className="difficulty-button"
             onClick={() => {
                 props.setCurrentDifficulty(props.difficulty.level);
                 props.dispatch({

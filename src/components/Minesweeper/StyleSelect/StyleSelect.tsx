@@ -6,6 +6,9 @@ import Dropdown from "./Dropdown";
 // Utility imports
 import { rangeToArray } from "./utils/range-to-array";
 
+// Stylesheet imports
+import "./StyleSelect.css";
+
 type TProps = {
     boardScale: string;
     setBoardScale: Dispatch<SetStateAction<string>>;

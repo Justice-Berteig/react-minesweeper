@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
 @import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 :root {
@@ -42,16 +43,23 @@
     --border-width-small: 0.2rem;
     --border-width-standard: 0.4rem;
 
+    --border-radius-small: var(--border-width-small);
+    --border-radius-standard: var(--border-width-standard);
+
     --padding-tiny: 0.2rem;
     --padding-small: 0.4rem;
     --padding-standard: 0.7rem;
+    --padding-large: 1.2rem;
 
     --gap-tiny: calc(var(--padding-tiny) * 2);
     --gap-small: calc(var(--padding-small) * 2);
     --gap-standard: calc(var(--padding-standard) * 2);
+    --gap-large: calc(var(--padding-standard) * 2);
 
     --border-highlight-colour: var(--clr-neutral-100);
     --border-shadow-colour: var(--clr-neutral-70);
+
+    --font-standard: 1.2rem;
 
     --inset-colours: var(--border-shadow-colour) var(--border-highlight-colour)
         var(--border-highlight-colour) var(--border-shadow-colour);
