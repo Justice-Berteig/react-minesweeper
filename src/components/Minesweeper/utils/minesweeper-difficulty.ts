@@ -5,6 +5,12 @@ export enum DifficultyLevel {
     CUSTOM = 3,
 }
 
+const defaults = {
+    width: 9,
+    height: 9,
+    startingMines: 10
+}
+
 export class MinesweeperDifficulty {
     level: DifficultyLevel;
     width: number;
@@ -36,20 +42,14 @@ export class MinesweeperDifficulty {
                 this.startingMines = 99;
                 break;
             case DifficultyLevel.CUSTOM:
-                if (width && height && startingMines) {
-                    this.width = width;
-                    this.height = height;
-                    this.startingMines = startingMines;
-                } else {
-                    this.width = 9;
-                    this.height = 9;
-                    this.startingMines = 10;
-                }
+                this.width = width ?? defaults.width;
+                this.height = height ?? defaults.height;
+                this.startingMines = startingMines ?? defaults.startingMines;
                 break;
             default:
-                this.width = 9;
-                this.height = 9;
-                this.startingMines = 10;
+                this.width = defaults.width;
+                this.height = defaults.height;
+                this.startingMines = defaults.startingMines;
                 break;
         }
     }
