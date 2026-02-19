@@ -99,11 +99,11 @@ function Minesweeper() {
     const [boardScale, setBoardScale] = useState<string>(initialScale);
     const [boardBrightness, setBoardBrightness] = useState<string>(initialBrightness);
     // Custom functions for updating scale/brightness that also sets value in local storage
-    function updateBoardScale(newBoardScale) {
+    function updateBoardScale(newBoardScale: string): void {
         localStorage.setItem("board-scale", newBoardScale);
         setBoardScale(newBoardScale);
     }
-    function updateBoardBrightness(newBoardBrightness) {
+    function updateBoardBrightness(newBoardBrightness: string): void {
         localStorage.setItem("board-brightness", newBoardBrightness);
         setBoardBrightness(newBoardBrightness);
     }
@@ -111,7 +111,7 @@ function Minesweeper() {
     return (
         <div className="minesweeper" onContextMenu={(e) => e.preventDefault()}>
             <div className="settings">
-                <DifficultySelect dispatch={dispatch} />
+                <DifficultySelect state={state} dispatch={dispatch} />
                 <StyleSelect
                     boardScale={boardScale}
                     setBoardScale={updateBoardScale}

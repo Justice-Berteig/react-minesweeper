@@ -54,12 +54,16 @@
     --gap-tiny: calc(var(--padding-tiny) * 2);
     --gap-small: calc(var(--padding-small) * 2);
     --gap-standard: calc(var(--padding-standard) * 2);
-    --gap-large: calc(var(--padding-standard) * 2);
+    --gap-large: calc(var(--padding-large) * 2);
 
     --border-highlight-colour: var(--clr-neutral-100);
     --border-shadow-colour: var(--clr-neutral-70);
 
-    --font-standard: 1.2rem;
+    --font-size-small: 0.9rem;
+    --font-size-standard: 1.2rem;
+
+    --font-family-main: "Figtree", sans-serif;
+    --font-family-mono: "Source Code Pro", monospace;
 
     --inset-colours: var(--border-shadow-colour) var(--border-highlight-colour)
         var(--border-highlight-colour) var(--border-shadow-colour);

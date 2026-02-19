@@ -1,13 +1,12 @@
 .difficulty-select {
-    padding: var(--padding-small);
-
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     gap: var(--gap-standard);
 }
 
 .difficulty-buttons {
     display: flex;
     flex-direction: row;
-    gap: var(--gap-large);
+    gap: var(--gap-tiny);
 }

@@ -5,7 +5,7 @@ export enum DifficultyLevel {
     CUSTOM = 3,
 }
 
-const defaults = {
+export const defaults = {
     width: 9,
     height: 9,
     startingMines: 10
@@ -45,6 +45,11 @@ export class MinesweeperDifficulty {
                 this.width = width ?? defaults.width;
                 this.height = height ?? defaults.height;
                 this.startingMines = startingMines ?? defaults.startingMines;
+                // Make sure there aren't more mines than tiles
+                this.startingMines = Math.min(
+                    this.width * this.height,
+                    this.startingMines
+                );
                 break;
             default:
                 this.width = defaults.width;

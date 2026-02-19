@@ -302,8 +302,8 @@ export class MinesweeperState {
             }
         }
 
-        // While there are still mines left to place
-        while (mines > 0) {
+        // While there are still mines left to place and empty tiles to put them in
+        while (mines > 0 && emptyTileIndeces.length > 0) {
             // Get a random tile index and remove it from the list of empty tiles
             const index: TileIndex = emptyTileIndeces.splice(
                 Math.floor(Math.random() * emptyTileIndeces.length),

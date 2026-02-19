@@ -1,0 +1,11 @@
+.dropdown {
+    background-color: var(--clr-neutral-90);
+    padding: var(--padding-standard);
+    border-width: 0px;
+    border-radius: var(--border-radius-standard);
+    padding-inline: var(--padding-large);
+    padding-block: var(--padding-small);
+
+    font-family: var(--font-family-main);
+    font-size: var(--font-size-standard);
+}

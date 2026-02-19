@@ -1,0 +1,21 @@
+.setting-input {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-small);
+}
+
+.setting-input > label {
+    font-family: var(--font-family-main);
+    font-size: var(--font-size-standard);
+}
+
+.setting-input > input {
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-small);
+
+    width: 4ch;
+    padding: var(--padding-small);
+    border: 0px solid black;
+    border-radius: var(--border-radius-small);
+}

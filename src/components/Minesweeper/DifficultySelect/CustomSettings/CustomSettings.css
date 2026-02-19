@@ -1,0 +1,20 @@
+.custom-settings {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-standard);
+}
+
+.custom-settings > .update-button {
+    font-family: var(--font-family-main);
+    font-size: var(--font-size-standard);
+
+    background-color: var(--clr-neutral-90);
+    padding: var(--padding-small);
+    padding-inline: var(--padding-standard);
+    border-radius: var(--border-radius-standard);
+}
+
+.custom-settings > .update-button:hover {
+    background-color: var(--clr-neutral-80);
+}

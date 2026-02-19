@@ -5,8 +5,8 @@
     border-radius: var(--border-radius-standard);
 
 
-    font-family: "Figtree", sans-serif;
-    font-size: var(--font-standard);
+    font-family: var(--font-family-main);
+    font-size: var(--font-size-standard);
 }
 
 .difficulty-button:hover {

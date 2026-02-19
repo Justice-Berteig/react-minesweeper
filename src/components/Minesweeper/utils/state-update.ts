@@ -130,9 +130,8 @@ export function updateState(
                 // Reveal all the mines
                 revealMines(newState, update);
             } else if (
-                newState.difficulty.startingMines ===
-                newState.difficulty.width * newState.difficulty.height -
-                    newState.revealedTiles
+                areAllRemainingTilesMines(newState)
+                && newState.revealedTiles != 0
             ) {
                 // If all tiles without mines have been revealed
                 // End the game as a win
@@ -147,4 +146,16 @@ export function updateState(
     }
 
     return newState;
+}
+
+/*
+Function takes a MinesweeperState object and determines if all the remaining
+hidden tiles are mines. It does this by comparing the number of total mines and
+the total number of hidden tiles.
+*/
+function areAllRemainingTilesMines(state: MinesweeperState): boolean {
+    const totalTiles = state.difficulty.width * state.difficulty.height;
+    const hiddenTiles = totalTiles - state.revealedTiles;
+
+    return state.difficulty.startingMines === hiddenTiles;
 }

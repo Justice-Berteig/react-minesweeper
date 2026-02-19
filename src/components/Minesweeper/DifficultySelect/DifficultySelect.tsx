@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 // Component imports
 import CustomSettings from "./CustomSettings";
 import DifficultyButton from "./DifficultyButton";
@@ -10,22 +8,17 @@ import {
     DifficultyLevel,
     MinesweeperDifficulty,
 } from "../utils/minesweeper-difficulty.ts";
+import { MinesweeperState } from "../utils/minesweeper-state.ts";
 
 // Stylesheet imports
 import "./DifficultySelect.css";
 
 type TProps = {
+    state: MinesweeperState;
     dispatch: (action: MinesweeperAction) => void;
 };
 
 function DifficultySelect(props: TProps) {
-    const [currentDifficulty, setCurrentDifficulty] = useState(
-        DifficultyLevel.BEGINNER
-    );
-    const [customDifficulty, setCustomDifficulty] = useState(
-        new MinesweeperDifficulty(DifficultyLevel.CUSTOM)
-    );
-
     return (
         <div className="difficulty-select">
             <div className="difficulty-buttons">
@@ -35,7 +28,6 @@ function DifficultySelect(props: TProps) {
                     }
                     dispatch={props.dispatch}
                     name="Beginner"
-                    setCurrentDifficulty={setCurrentDifficulty}
                 />
                 <DifficultyButton
                     difficulty={
@@ -43,7 +35,6 @@ function DifficultySelect(props: TProps) {
                     }
                     dispatch={props.dispatch}
                     name="Intermediate"
-                    setCurrentDifficulty={setCurrentDifficulty}
                 />
                 <DifficultyButton
                     difficulty={
@@ -51,20 +42,20 @@ function DifficultySelect(props: TProps) {
                     }
                     dispatch={props.dispatch}
                     name="Expert"
-                    setCurrentDifficulty={setCurrentDifficulty}
                 />
                 <DifficultyButton
-                    difficulty={customDifficulty}
+                    difficulty={
+                        new MinesweeperDifficulty(DifficultyLevel.CUSTOM)
+                    }
                     dispatch={props.dispatch}
                     name="Custom"
-                    setCurrentDifficulty={setCurrentDifficulty}
                 />
             </div>
             <CustomSettings
+                dispatch={props.dispatch}
                 isVisible={
-                    currentDifficulty === DifficultyLevel.CUSTOM ? true : false
+                    props.state.difficulty.level === DifficultyLevel.CUSTOM ? true : false
                 }
-                setCustomDifficulty={setCustomDifficulty}
             />
         </div>
     );

@@ -6,14 +6,14 @@ type TProps = {
     iconPath: string | null;
     name: string;
     options: number[] | string[];
-    setValue: Dispatch<SetStateAction<string>>;
+    setValue: (newValue: string) => void;
     value: string;
 };
 
 function Dropdown(props: TProps) {
     return (
         <select
-            className={props.name}
+            className={"dropdown " + props.name}
             onChange={(e) => {
                 props.setValue(e.target.value);
             }}

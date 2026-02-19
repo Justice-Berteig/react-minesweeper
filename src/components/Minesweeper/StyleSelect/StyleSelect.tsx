@@ -11,9 +11,9 @@ import "./StyleSelect.css";
 
 type TProps = {
     boardScale: string;
-    setBoardScale: Dispatch<SetStateAction<string>>;
+    setBoardScale: (newScale: string) => void;
     boardBrightness: string;
-    setBoardBrightness: Dispatch<SetStateAction<string>>;
+    setBoardBrightness: (newBrightness: string) => void;
 };
 
 function StyleSelect(props: TProps) {
